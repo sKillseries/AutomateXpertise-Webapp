@@ -1,0 +1,7 @@
+Ici vous retrouverez le résulat des différentes phases du pentest.
+
+Pour la phase 1 qui concernent la reconnaissance vous aurez des fichiers du nom:
+
+- web: webrecon.txt
+- AD : adrecon.txt
+- Système et Service : sysrecon.txt
