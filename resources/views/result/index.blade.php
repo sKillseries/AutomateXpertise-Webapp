@@ -15,7 +15,9 @@
                                 |
                                 <a href="{{ route('view', $item->getBasename()) }}">Voir</a>
                                 |
-                                <a href="{{ route('download', $item->getBasename()) }}">Download</a></p>
+                                Download:
+                                <a href="{{ route('download', $item->getBasename()) }}">html</a>
+                                <a href="{{ route('markdown', $item->getBasename()) }}">markdown</a></p>
                             </li>
                         @endforeach
                     </ul>

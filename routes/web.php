@@ -44,6 +44,7 @@ Route:: middleware('auth')->group(function () {
     Route::get('/files', [FileController::class, 'showFiles'])->name('files');
     Route::get('/files/view/{filename}', [FileController::class, 'viewFile'])->name('view');
     Route::get('/files/download/{filename}', [FileController::class, 'download'])->name('download');
+    Route::get('/files/markdown/{filename}', [FileController::class, 'markdown'])->name('markdown');
 });
 
 require __DIR__.'/auth.php';
