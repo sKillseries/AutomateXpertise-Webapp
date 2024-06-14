@@ -1,17 +1,19 @@
-<pre><p class="text-sm text-black dark:text-white">
-    Ici vous retrouverez le résultat brut des scans effectués.
-
-    Pour la phase reconnaissance vous aurez des fichiers du nom:
-    - web: webrecon.html
-    - AD : adrecon.html
-    - Système et Service : sysrecon.html
-
-    Pour la phase scanning vous aurez des fichiers avec les noms suivant:
-    - hostdiscovering.html
-    - netscan.html
-
-    Ces différents fichier html pourront être télécharger au format:
-    - html
-    - markdown
-    - PDF
-</p></pre>
+<h1 class="font-semibold text-xl text-gray-800 leading-tight dark:text-white">Fonctionnement</h1>
+<p class="text-sm text-black dark:text-white">Ici vous retrouverez le résultat brut des scans effectués.</p>
+<p class="text-sm text-black dark:text-white">Pour la phase reconnaissance vous aurez des fichiers du nom:</p>
+<ul class="text-sm text-black dark:text-white">
+    <li>Web: webrecon.html</li>
+    <li>AD : adrecon.html</li>
+    <li>Système et Service : sysrecon.html</li>
+</ul>
+<p class="text-sm text-black dark:text-white">Pour la phase scanning vous aurez des fichiers avec les noms suivant:</p>
+<ul class="text-sm text-black dark:text-white">
+    <li>hostdiscovering.html</li>
+    <li>netscan.html</li>
+</ul>
+<p class="text-sm text-black dark:text-white">Ces différents fichier html pourront être télécharger au format:</p>
+<ul class="text-sm text-black dark:text-white">
+    <li>HTML</li>
+    <li>Markdown</li>
+    <li>PDF</li>
+</ul>
