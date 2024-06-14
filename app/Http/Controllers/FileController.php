@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use League\HTMLToMarkdown\HtmlConverter;
+use PDF;
 
 class FileController extends Controller
 {
@@ -59,6 +60,22 @@ class FileController extends Controller
             return response($markdown)
                 ->header('Content-Type', 'text/markdown')
                 ->header('Content-Disposition', 'attachment; filename="' . $markdownFileName . '"');
+        } else {
+            return redirect()->route('files')->with('error', 'Fichier non trouvé.');
+        }
+    }
+
+    public function PDF($filename)
+    {
+        $directory = public_path("resultats");
+
+        $file = $directory . '/' . $filename;
+
+        if (file_exists($file)) {
+            $htmlContent = file_get_contents($file);
+            $pdf = PDF::loadHTML($htmlContent);
+            $pdfFileName = pathinfo($file, PATHINFO_FILENAME) . '.pdf';
+            return $pdf->download($pdfFileName);
         } else {
             return redirect()->route('files')->with('error', 'Fichier non trouvé.');
         }

@@ -1,14 +1,17 @@
-<p class="text-sm text-black dark:text-white">
-    Ici vous retrouverez le résulat des différentes phases du pentest.
+<pre><p class="text-sm text-black dark:text-white">
+    Ici vous retrouverez le résultat brut des scans effectués.
 
-    Pour la phase 1 qui concernent la reconnaissance vous aurez des fichiers du nom:
+    Pour la phase reconnaissance vous aurez des fichiers du nom:
     - web: webrecon.html
     - AD : adrecon.html
     - Système et Service : sysrecon.html
 
-    Pour la phase 2 qui concerne le scanning vous aurez des fichiers avec les noms suivant:
+    Pour la phase scanning vous aurez des fichiers avec les noms suivant:
     - hostdiscovering.html
     - netscan.html
 
-    Ces différents fichier html pourront être télécharger au format html, markdown ou encore PDF.
-</p>
+    Ces différents fichier html pourront être télécharger au format:
+    - html
+    - markdown
+    - PDF
+</p></pre>
