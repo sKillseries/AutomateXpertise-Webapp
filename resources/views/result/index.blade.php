@@ -17,8 +17,12 @@
                                 |
                                 Download:
                                 <a href="{{ route('download', $item->getBasename()) }}">html</a>
+                                -
                                 <a href="{{ route('markdown', $item->getBasename()) }}">markdown</a>
-                                <a href="{{ route('pdf', $item->getBasename()) }}">pdf</a></p>
+                                -
+                                <a href="{{ route('pdf', $item->getBasename()) }}">pdf</a>
+                                -
+                                <a href="{{ route('word', $item->getBasename()) }}">word</a></p>
                             </li>
                         @endforeach
                     </ul>
