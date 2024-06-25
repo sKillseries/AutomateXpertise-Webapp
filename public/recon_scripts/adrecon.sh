@@ -57,7 +57,7 @@ echo "[*] Reverse lookups PTR"
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
 
-dnsrecon -r "$range" -n "$cible" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_ptr_dnsrecon.json
+dnsrecon -r "$range" -n "$cible" -x files_to_process/ad_ptr_dnsrecon.xml
 
 echo "[*] nbt-ns scanning..."
 {
@@ -70,9 +70,6 @@ echo "[*] nbt-ns scanning..."
     nmblookup -A "$cible"
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
-
-nbtscan -r "$cible"/"$mask" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_nbt_nbtscan.json
-nmblookup -A "$cible" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_nbt_nmblookup.json
 
 echo "[*] Port scanning..."
 {
@@ -100,9 +97,8 @@ echo "[*] ldap checking..."
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
 
-impacket-ntlmrelayx -t "ldap://'$cible'" --dump-adcs --dump-laps --dump-gmsa 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_ldap_impacket.json
-windapsearch --dc "$cible" --module users 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_ldap_windapsearch_users.json
-windapsearch --dc "$cible" --module metadata 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_ldap_windapsearch_metadata.json
+windapsearch --dc "$cible" --module users -o files_to_process/ad_ldap_windapsearch_users.tsv
+windapsearch --dc "$cible" --module metadata -o 2>&1 files_to_process/ad_ldap_windapsearch_metadata.tsv
 
 echo "[*] Looking for exposed rpc services..."
 {
@@ -116,9 +112,6 @@ echo "[*] Looking for exposed rpc services..."
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
 
-impacket-rpcdump -port 135 "$cible" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_impacket_rpcdump1.json
-impacket-rpcdump -port 593 "$cible" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_impacket_rpcdump2.json
-
 echo "[*] enum4linux checking..."
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">enum4linux result</h2>'
@@ -126,5 +119,3 @@ echo "[*] enum4linux checking..."
     enum4linux -A "$cible"
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
-
-enum4linux -A "$cible" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/ad_enum4linux.json

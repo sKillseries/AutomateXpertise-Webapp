@@ -30,8 +30,6 @@ echo "[*] NBT discovering..."
     echo -e '</code></pre>'
 } >> resultats/sysrecon.html
 
-nbtscan -r "$cible" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/sys_nbtscan.json
-
 echo "[*] ICMP discovering..."
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">ICMP scan result</h2>'
@@ -60,4 +58,4 @@ echo "[*] Double Checking Port Scanning..."
     echo -e '</code></pre>'
 } >> resultats/sysrecon.html 
 
-masscan -p0-65535,U:0-65535 --max-rate 100000 "$cible" -oJ files_to_process/sys_masscan.json
+masscan -p0-65535,U:0-65535 --max-rate 100000 "$cible" -oX files_to_process/sys_masscan.xml

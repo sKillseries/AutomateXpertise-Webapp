@@ -33,8 +33,6 @@ echo "[+] HTTP response headers checking..."
     echo -e '</code></pre>'
 } >> resultats/webrecon.html
 
-curl --location --head "$url" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' files_to_process/web_curl.xml
-
 echo "[+] Site crawling..."
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">hakrawler Result</h2>'
@@ -43,7 +41,7 @@ echo "[+] Site crawling..."
     echo -e '</code></pre>'
 } >> resultats/webrecon.html
 
-echo "$url" | hakrawler -d 10 | jq -R -s -c '{urls: split("\n")}' > files_to_process/web_hakrawler.json
+echo "$url" | hakrawler -d 10 -json > files_to_process/web_hakrawler.json
 
 echo "[+] Harvesting subdomains with assetfinder..."
 assetfinder "$fqdn" >> resultats/webassets.txt
@@ -63,18 +61,17 @@ echo "[+] dnsrecon enumeration and zone transfer..."
     echo -e '</code></pre>'
 } >> resultats/webrecon.html
 
-dnsrecon -a -d "$url" | jq -R -s -c 'split("\n") | map(split(",") | {key: .[0], value: .[1]})' > files_to_process/web_dnsrecon.json
+dnsrecon -a -d "$url" -x files_to_process/web_dnsrecon.xml
 
 echo "[+] Probing for alive domains..."
 sort -u resultats/webfinal.txt | httprobe -s -p https:443 | sed 's/https\?:\/\///' | tr -d ':443' >> resultats/weba.txt
 sort -u resultats/weba.txt >> resultats/webalive.txt
-sort -u resultats/weba.txt | jq -R -s -c 'split("\n") | {urls: .}' > files_to_process/webalive.json
 rm resultats/weba.txt
 rm resultats/webfinal.txt
  
 echo "[+] Checking for possible subdomain takeover..." 
 subjack -w resultats/webalive.txt -t 100 -timeout 30 -ssl -c ~/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o resultats/web_potential_takeovers.txt
-subjack -w resultats/webalive.txt -t 100 -timeout 30 -ssl -c ~/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o - | jq -R -s -c 'split("\n") | {subdomains: .}' > files_to_process/web_subjack.json
+subjack -w resultats/webalive.txt -t 100 -timeout 30 -ssl -c ~/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o files_to_process/web_subjack.json
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">potential subdomain takeover</h2>'
     echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
@@ -102,7 +99,7 @@ echo "[+] WAF checking..."
     echo -e '</code></pre>'
 } >> resultats/webrecon.html
 
-wafw00f "$url" | jq '.' > files_to_process/web_wafw00f.json
+wafw00f "$url" -o files_to_process/web_wafw00f.json
 
 echo "[+] Double WAF checking..."
 {
@@ -112,8 +109,6 @@ echo "[+] Double WAF checking..."
     echo -e '</code></pre>'
 } >> resultats/webrecon.html
 
-whatwaf -u "$url" 2>&1 | jq -R -s -c 'split("\n") | {results: .}' > files_to_process/web_whatwaf.json
-
 echo "[+] CMS identification checking..."
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">droopescan result</h2>'
@@ -121,8 +116,6 @@ echo "[+] CMS identification checking..."
     droopescan scan -u "$url"
     echo -e '</code></pre>'
 } >> resultats/webrecon.html
-
-droopescan scan -u "$url" | jq '.' > files_to_process/web_droopescan.json
 
 echo "[+] vulnerability scanning"
 {
@@ -132,7 +125,7 @@ echo "[+] vulnerability scanning"
     echo -e '</code></pre>'
 } >> resultats/webrecon.html
 
-nikto -h "$url" -o - | jq '.' > files_to_process/web_nikto.json
+nikto -h "$url" -o files_to_process/web_nikto.xml
 
 echo "[+] double checking vulnerability scanning"
 {
