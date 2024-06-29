@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReconController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\AnalyseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,11 @@ Route:: middleware('auth')->group(function () {
     Route::get('/files/markdown/{filename}', [FileController::class, 'markdown'])->name('markdown');
     Route::get('/files/pdf/{filename}', [FileController::class, 'pdf'])->name('pdf');
     Route::get('/files/word/{filename}', [FileController::class, 'word'])->name('word');
+});
+
+# Section Analyse resultats
+Route::middleware('auth')->group(function () {
+    Route::get('/analyses', [AnalyseController::class, 'showAnalyses'])->name('analyses');
 });
 
 require __DIR__.'/auth.php';

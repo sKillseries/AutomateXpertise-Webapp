@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('files')" :active="request()->RouteIs('files')">
                         {{ __('Résultat des scans') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('analyses')" :active="request()->RouteIs('analyses')">
+                        {{ __("Résultat de l'analyse des scans") }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -84,6 +87,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('files')" :active="request()->RouteIs('files')">
                 {{ __('Résultat des scans') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('analyses')" :active="request()->RouteIs('analyses')">
+                {{ __("Résultat de l'analyse des scans") }}
             </x-responsive-nav-link>
         </div>
 
