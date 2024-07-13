@@ -16,7 +16,7 @@ echo "[*] TCP Port scanning..."
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">TCP port scan result</h2>'
     echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    nmap -Pn --script vuln -sV -p "0-65535" "$cible"
+    nmap -Pn -sV -p "0-65535" "$cible"
     echo -e '</code></pre>'
 } >> resultats/sysrecon.html
 
