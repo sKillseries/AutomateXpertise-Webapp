@@ -20,7 +20,7 @@ echo "[*] TCP Port scanning..."
     echo -e '</code></pre>'
 } >> resultats/sysrecon.html
 
-nmap -Pn -sV -p "0-65535" "$cible" -oX files_to_process/sys_tcp_nmap_scan.xml
+nmap -Pn -sV -p "0-65535" "$cible" -oX files_to_process/nmap_sysrecon_tcp_scan.xml
 
 echo "[*] Double Checking Port Scanning..."
 {
@@ -30,4 +30,4 @@ echo "[*] Double Checking Port Scanning..."
     echo -e '</code></pre>'
 } >> resultats/sysrecon.html 
 
-masscan -p 0-65535,U:0-65535 -rate 100000 "$cible" --banners -oX files_to_process/sys_masscan.xml
+masscan -p 0-65535,U:0-65535 -rate 100000 "$cible" --banners -oX files_to_process/masscan_sysrecon.xml
