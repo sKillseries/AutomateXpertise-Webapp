@@ -35,9 +35,9 @@
                         <br>
                         <button type="submit" class="text-l font-semibold text-white scale-100 p-6 bg-red-500 rounded-lg shadow-2xl flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">Execute Selected Scripts
                         </button>
-                        @if (isset($output))
+                        @if (isset($messages))
                             <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Output:</h2>
-                            <pre class="mt-4 text-m leading-relaxed dark:text-white">{{ $output }}</pre>
+                            <pre class="mt-4 text-m leading-relaxed dark:text-white">{{ $messages }}</pre>
                         @endif
                     </form>
                 </div>

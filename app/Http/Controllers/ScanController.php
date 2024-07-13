@@ -30,25 +30,35 @@ class ScanController extends Controller
         $selectedScripts = $request->input('selected_scripts');
         $cible = $request->input('cible');
         $cibleArguments = $request->input('cible_arguments');
-        $output = '';
+        $messages = '';
 
         if (!empty($selectedScripts)) {
             foreach ($selectedScripts as $selectedScript) {
+                // Message avant l'exécution du script
+                $messages .= "Exécution du script $selectedScript en cours...\n";
+
                 // Exécution du script sélectionné en fonction de son extension
                 $extension = pathinfo($selectedScript, PATHINFO_EXTENSION);
 
                 if ($extension === 'py') {
-                    $output .= shell_exec('python3 ' . $this->scanscriptsDirectory . '/' . $selectedScript . ' ' . $cible . ' ' . $cibleArguments);
+                    shell_exec('python3 ' . $this->scanscriptsDirectory . '/' . $selectedScript . ' ' . $cible . ' ' . $cibleArguments);
                 } elseif ($extension === 'sh') {
-                    $output .= shell_exec('bash ' . $this->scanscriptsDirectory . '/' . $selectedScript . ' ' . $cible . ' ' . $cibleArguments);
+                    shell_exec('bash ' . $this->scanscriptsDirectory . '/' . $selectedScript . ' ' . $cible . ' ' . $cibleArguments);
                 } else {
-                    $output .= "Unsupported file extension for $selectedScript";
+                    $messages .= "Unsupported file extension for $selectedScript\n";
+                    continue;
                 }
+
+                // Message après l'exécution du script
+                $messages .= "Fin exécution du script $selectedScript.\n";
            }
+
+           // Message d'invitation à l'utiliser à consulter les résultats
+           $messages .= "Vous pouvez consulter le résultat du scanning dans la section Résultats";
         }
 
         return view('scan.index', [
-            'output' => $output,
+            'messages' => $messages,
             'scriptFiles' => File::files($this->scanscriptsDirectory), //Réactualise la liste des scripts
         ]);
     }

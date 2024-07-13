@@ -31,25 +31,35 @@ class ReconController extends Controller
         $cible = $request->input('cible');
         $cibleArgument1 = $request->input('cible_argument_1');
         $cibleArgument2 = $request->input('cible_argument_2');
-        $output = '';
+        $messages = '';
 
         if (!empty($selectedScripts)) {
             foreach ($selectedScripts as $selectedScript) {
+                // Message avant l'exécution du script
+                $messages .= "Exécution du script $selectedScript en cours...\n";
+
                 // Exécution du script sélectionné en fonction de son extension
                 $extension = pathinfo($selectedScript, PATHINFO_EXTENSION);
 
                 if ($extension === 'py') {
-                    $output .= shell_exec('python3 ' . $this->reconscriptsDirectory . '/' . $selectedScript . ' ' . $cible . ' ' . $cibleArgument1 . ' ' . $cibleArgument2);
+                    shell_exec('python3 ' . $this->reconscriptsDirectory . '/' . $selectedScript . ' ' . $cible . ' ' . $cibleArgument1 . ' ' . $cibleArgument2);
                 } elseif ($extension === 'sh') {
-                    $output .= shell_exec('bash ' . $this->reconscriptsDirectory . '/' . $selectedScript . ' ' . $cible . ' ' . $cibleArgument1 . ' ' . $cibleArgument2);
+                    shell_exec('bash ' . $this->reconscriptsDirectory . '/' . $selectedScript . ' ' . $cible . ' ' . $cibleArgument1 . ' ' . $cibleArgument2);
                 } else {
-                    $output .= "Unsupported file extension for $selectedScript";
+                    $messages .= "Unsupported file extension for $selectedScript\n";
+                    continue;
                 }
+
+                // Message après l'exécution du script
+                $messages .= "Fin exécution du script $selectedScript.\n";
             }
+
+            // Message d'invitation à l'utiliser à consulter les résultats
+            $messages .= "Vous pouvez consulter le résultat de la reconnaissance dans la section Résultats";
         }
 
         return view('recon.index', [
-            'output' => $output,
+            'messages' => $messages,
             'scriptFiles' => File::files($this->reconscriptsDirectory), //Réactualiser la liste des scripts
         ]);
     }
