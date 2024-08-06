@@ -22,8 +22,6 @@ echo "[*] DHCP Checking..."
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
 
-nmap --script broadcast-dhcp-discover -oX files_to_process/ad_dhcp_nmap_scan.xml
-
 echo "[*] DNS checking..."
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">DNS Check result</h2>'
@@ -31,8 +29,6 @@ echo "[*] DNS checking..."
     nmap --script dns-srv-enum --script-args dns-srv-enum.domain="$cible"
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
-
-nmap --script dns-srv-enum --script-args dns-srv-enum.domain="$cible" -oX files_to_process/ad_dns_check_nmap_scan.xml
 
 echo "[*] Disvovering DNS nameservers..."
 {
@@ -46,9 +42,6 @@ echo "[*] Disvovering DNS nameservers..."
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
 
-nmap -v -sV -p 53 "$cible"/"$mask" -oX files_to_process/ad_dns_discover_nmap_scan1.xml
-nmap -v -sV -sU -p 53 "$cible"/"$mask" -oX files_to_process/ad_dns_discover_nmap_scan2.xml
-
 echo "[*] Reverse lookups PTR"
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">PTR result</h2>'
@@ -56,8 +49,6 @@ echo "[*] Reverse lookups PTR"
     dnsrecon -r "$range" -n "$cible"
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
-
-dnsrecon -r "$range" -n "$cible" -x files_to_process/ad_ptr_dnsrecon.xml
 
 echo "[*] nbt-ns scanning..."
 {
@@ -79,8 +70,6 @@ echo "[*] Port scanning..."
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
 
-nmap -sS -n --open -p 88,389 "$cible" -oX files_to_process/ad_port_nmap_scan.xml
-
 echo "[*] ldap checking..."
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">ldap check result</h2>'
@@ -96,9 +85,6 @@ echo "[*] ldap checking..."
     windapsearch --dc "$cible" --module metadata
     echo -e '</code></pre>'
 } >> resultats/adrecon.html
-
-windapsearch --dc "$cible" --module users -o files_to_process/ad_ldap_windapsearch_users.tsv
-windapsearch --dc "$cible" --module metadata -o 2>&1 files_to_process/ad_ldap_windapsearch_metadata.tsv
 
 echo "[*] Looking for exposed rpc services..."
 {

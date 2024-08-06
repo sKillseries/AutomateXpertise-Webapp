@@ -33,6 +33,14 @@ echo "[+] HTTP response headers checking..."
     echo -e '</code></pre>'
 } >> resultats/webrecon.html
 
+echo "HTTP Port Scanning"
+{
+    echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Inside singlehost HTTP Port Scanning Result</h2>'
+    echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
+    nmap -Pn -sV -p 80,443,8000-8100,8443 "$cible" -oX files_to_process/nmap_webrecon_http_scan.xml
+    echo -e '</code></pre>'
+} >> resultats/webrecon.html
+
 echo "[+] Site crawling..."
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">hakrawler Result</h2>'

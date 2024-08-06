@@ -31,33 +31,19 @@ echo "TCP Port Scanning"
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Inside singlehost TCP Port Scanning Result</h2>'
     echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    nmap -sV -sC -O -n -Pn -p- -oA fullfastscan "$cible"
+    nmap -sV -sC -O -p- -n -Pn "$cible" -oX files_to_process/nmap_netscan_inside_tcp_port_scan.xml
     echo -e '</code></pre>'
 } >> resultats/netscan.html
-
-echo "HTTP Port Scanning"
-{
-    echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Inside singlehost HTTP Port Scanning Result</h2>'
-    echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    masscan --banners -p 80,443,8000-8100,8443 "$cible"
-    echo -e '</code></pre>'
-} >> resultats/netscan.html
-
-echo "UDP Port Scanning"
-{
-    echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Inside singlehost UDP Port Scanning Result</h2>'
-    echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    nmap -sU -sV --version-intensity 0 -n "$cible"
-    echo -e '</code></pre>'
-} >> resultats/netscan.html
+#nmap -sV -sC -O -p- -n -Pn "$cible" -oX files_to_process/nmap_netscan_inside_tcp_port_scan.xml
 
 echo "SCTP Port Scanning"
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Inside singlehost SCTP Port Scanning Result</h2>'
     echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    nmap -p- -sY -sV -sC -F -n -oA SCTAllScan "$cible"
+    nmap -p- -sY -sV -sC -n "$cible" -oX files_to_process/nmap_netscan_inside_sctp_scan.xml
     echo -e '</code></pre>'
 } >> resultats/netscan.html
+#nmap -p- -sY -sV -sC -n "$cible" -oX files_to_process/nmap_netscan_inside_sctp_scan.xml
 
 echo "DHCP Scanning"
 {

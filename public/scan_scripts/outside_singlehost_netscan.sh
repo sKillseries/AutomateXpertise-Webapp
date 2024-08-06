@@ -23,23 +23,7 @@ echo "TCP Port Scanning"
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Outside singlehost TCP Port Scanning Result</h2>'
     echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    masscan --banners -p 20,21-23,25,53,80,110,111,135,139,143,443,445,993,995,1723,3306,3389,5900,8080 "$cible"
-    echo -e '</code></pre>'
-} >> resultats/netscan.html
-
-echo "HTTP Port Scanning"
-{
-    echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Outside singlehost HTTP Port Scanning Result</h2>'
-    echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    masscan --banners -p 80,443,8000-8100,8443 "$cible"
-    echo -e '</code></pre>'
-} >> resultats/netscan.html
-
-echo "UDP Port Scanning"
-{
-    echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Outside singlehost UDP Port Scanning Result</h2>'
-    echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    nmap -sU -sV --version-intensity 0 -F -n "$cible"
+    nmap -Pn -sV -p 20,21-23,25,53,80,110,111,135,139,143,443,445,993,995,1723,3306,3389,5900,8080 "$cible" -oX files_to_process/nmap_outside_singlehost_netscan.xml
     echo -e '</code></pre>'
 } >> resultats/netscan.html
 
