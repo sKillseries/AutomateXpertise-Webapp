@@ -19,5 +19,3 @@ echo "[*] TCP Port scanning..."
     nmap -Pn -sV -p "0-65535" "$cible" -oX files_to_process/nmap_sysrecon_tcp_scan.xml
     echo -e '</code></pre>'
 } >> resultats/sysrecon.html
-
-#nmap -Pn -sV -p "0-65535" "$cible" -oX files_to_process/nmap_sysrecon_tcp_scan.xml

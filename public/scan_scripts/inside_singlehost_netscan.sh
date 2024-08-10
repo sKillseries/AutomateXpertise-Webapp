@@ -34,7 +34,6 @@ echo "TCP Port Scanning"
     nmap -sV -sC -O -p- -n -Pn "$cible" -oX files_to_process/nmap_netscan_inside_tcp_port_scan.xml
     echo -e '</code></pre>'
 } >> resultats/netscan.html
-#nmap -sV -sC -O -p- -n -Pn "$cible" -oX files_to_process/nmap_netscan_inside_tcp_port_scan.xml
 
 echo "SCTP Port Scanning"
 {
@@ -43,7 +42,6 @@ echo "SCTP Port Scanning"
     nmap -p- -sY -sV -sC -n "$cible" -oX files_to_process/nmap_netscan_inside_sctp_scan.xml
     echo -e '</code></pre>'
 } >> resultats/netscan.html
-#nmap -p- -sY -sV -sC -n "$cible" -oX files_to_process/nmap_netscan_inside_sctp_scan.xml
 
 echo "DHCP Scanning"
 {
