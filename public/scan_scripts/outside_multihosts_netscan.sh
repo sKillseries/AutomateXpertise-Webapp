@@ -24,7 +24,7 @@ echo "TCP Port Scanning"
 {
     echo -e '<h2 class="font-semibold text-xl text-gray-800 dark:text-white">Outside multihosts TCP Port Scanning Result</h2>'
     echo -e '<pre class="bg-gray-100 dark:bg-gray-900 shadow-md"><code class="text-sm text-gray-700 bg-gray-100 dark:text-white dark:bg-gray-900 p-4 block">'
-    nmap -Pn -sV -p 20,21-23,25,53,80,110,111,135,139,143,443,445,993,995,1723,3306,3389,5900,8080 "$cible"/"$cidr" -oX files_to_process/nmap_outside_multihosts_netscan.xml
+    nmap -Pn -sV -p- "$cible"/"$cidr" -oX files_to_process/nmap_outside_multihosts_netscan.xml
     echo -e '</code></pre>'
 } >> resultats/netscan.html
 
