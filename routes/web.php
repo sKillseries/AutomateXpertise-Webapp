@@ -53,6 +53,7 @@ Route:: middleware('auth')->group(function () {
 # Section Analyse resultats
 Route::middleware('auth')->group(function () {
     Route::get('/analyses', [AnalyseController::class, 'showAnalyses'])->name('analyses');
+    Route::get('/execute-analyses', [AnalyseController::class, 'launchAnalyses']);
 });
 
 require __DIR__.'/auth.php';
